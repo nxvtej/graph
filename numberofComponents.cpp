@@ -1,13 +1,19 @@
 #include <iostream>
 #include <vector>
 
+#define vi vector<int>
+#define vb vector<bool>
+#define pb push_back
+#define qi queue<int>
+#define vvi vector<vector<int>>
+
 using namespace std;
 
 class Solution
 {
 
 public:
-    static void dfs(int node, vector<vector<int>> &adj, vector<bool> &visited)
+    static void dfs(int node, vvi &adj, vb &visited)
     {
         visited[node] = true;
         for (int i = 0; i < adj.size(); i++)
@@ -19,10 +25,10 @@ public:
         }
     }
 
-    static int numProvinces(vector<vector<int>> adj, int V)
+    static int numProvinces(vvi adj, int V)
     {
         // trying with adj matrix
-        vector<bool> visited(V, false);
+        vb visited(V, false);
         int count = 0;
 
         for (int i = 0; i < V; i++)
@@ -40,9 +46,9 @@ public:
 int main()
 {
     Solution solution;
-    vector<vector<int>> isConnected = {{1, 1, 0}, {1, 1, 0}, {0, 0, 1}};
+    vvi isConnected = {{1, 1, 0}, {1, 1, 0}, {0, 0, 1}};
 
-    int (*pProvinces)(vector<vector<int>>, int);
+    int (*pProvinces)(vvi, int);
     pProvinces = Solution::numProvinces;
     int numberofComponents = (*pProvinces)(isConnected, 3);
     cout << numberofComponents;
