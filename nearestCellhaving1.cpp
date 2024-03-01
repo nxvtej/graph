@@ -181,51 +181,105 @@ public:
         int n = grid.size();
         int m = grid[0].size();
 
-        vvi distance(n, vi(m, INT_MAX)); // Initialize distance matrix to maximum value
+        /*
+                vvi distance(n, vi(m, INT_MAX)); // Initialize distance matrix to maximum value
 
-        // Create a queue to perform Breadth-First Search (BFS)
+                // Create a queue to perform Breadth-First Search (BFS)
+                queue<pair<int, int>> q;
+
+                // Start BFS from all cells containing 1
+                for (int i = 0; i < n; ++i)
+                {
+                    for (int j = 0; j < m; ++j)
+                    {
+                        if (grid[i][j] == 1)
+                        {
+                            distance[i][j] = 0; // Update distance to 0 for starting 1s
+                            q.push({i, j});
+                        }
+                    }
+                }
+
+                // Setting delta values for row and column movements
+                int delrow[] = {-1, 0, 1, 0};
+                int delcol[] = {0, 1, 0, -1};
+
+                // Perform BFS
+                while (!q.empty())
+                {
+                    int row = q.front().first;
+                    int col = q.front().second;
+                    q.pop();
+
+                    // Explore all four neighbors
+                    for (int i = 0; i < 4; ++i)
+                    {
+                        int nrow = row + delrow[i];
+                        int ncol = col + delcol[i];
+
+                        // Check if the neighbor is valid (within bounds and unvisited)
+                        if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && distance[nrow][ncol] == INT_MAX)
+                        {
+                            distance[nrow][ncol] = distance[row][col] + 1; // Update distance
+                            q.push({nrow, ncol});                          // Add neighbor to queue
+                        }
+                    }
+                }
+
+                return distance;
+            }
+            */
+        // frst step to create visited and dist
+        // vector<vector<int>> visited(n,vector<int>(m,0));
+        vector<vector<int>> dist(n, vector<int>(m, INT_MAX));
+
         queue<pair<int, int>> q;
 
-        // Start BFS from all cells containing 1
-        for (int i = 0; i < n; ++i)
+        // now assign all the ones to distance 0 and mark them viisted
+        for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < m; ++j)
+            for (int j = 0; j < m; j++)
             {
                 if (grid[i][j] == 1)
                 {
-                    distance[i][j] = 0; // Update distance to 0 for starting 1s
+                    // visited[i][j]=1;
+                    dist[i][j] = 0;
                     q.push({i, j});
                 }
             }
         }
 
-        // Setting delta values for row and column movements
         int delrow[] = {-1, 0, 1, 0};
         int delcol[] = {0, 1, 0, -1};
 
-        // Perform BFS
+        // now use bfs for get queu
+        // int distance = 0;
         while (!q.empty())
         {
             int row = q.front().first;
             int col = q.front().second;
+            // int d =/q.front().second;
+
             q.pop();
 
-            // Explore all four neighbors
-            for (int i = 0; i < 4; ++i)
+            // so far i have it takes to reach that certain row and col so store it
+            // dist[row][col]=d;
+
+            // ṇow traverse all neighbours
+            for (int i = 0; i < 4; i++)
             {
                 int nrow = row + delrow[i];
                 int ncol = col + delcol[i];
 
-                // Check if the neighbor is valid (within bounds and unvisited)
-                if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && distance[nrow][ncol] == INT_MAX)
+                if (nrow < n && nrow >= 0 && ncol < m && ncol >= 0 && dist[row][col] + 1 < dist[nrow][ncol])
                 {
-                    distance[nrow][ncol] = distance[row][col] + 1; // Update distance
-                    q.push({nrow, ncol});                          // Add neighbor to queue
+                    // visited[nrow][ncol]=1;
+                    dist[nrow][ncol] = dist[row][col] + 1;
+                    q.push({nrow, ncol});
                 }
             }
         }
-
-        return distance;
+        return dist;
     }
 };
 
