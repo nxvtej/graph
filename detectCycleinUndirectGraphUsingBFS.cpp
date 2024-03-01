@@ -1,12 +1,25 @@
+
+/*
+
+*/
 #include <iostream>
-#include <queue>
 #include <vector>
+#include <queue>
 
 using namespace std;
 
 #define vi vector<int>
+#define vvi vector<vector<int>>
+
+#define qi queue<int>
 #define qp queue<pair<int, int>>
+#define qpf queue<pair<pair<int, int>, int>>
+
 #define pb push_back
+#define ff front().first
+#define fff front().first.first
+#define ffs front().first.second
+#define fs front().second
 
 class Solution
 {
